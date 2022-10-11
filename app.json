@@ -4,10 +4,10 @@
     "slug": "demo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ardenIcon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ardenIcon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

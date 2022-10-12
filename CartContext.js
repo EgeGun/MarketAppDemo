@@ -83,28 +83,19 @@ export function CartProvider({ children }) {
   );
 
   const [store, setStore] = useState([]);
-  const [count, setCount] = useState([]);
-  // const addToCart = (text) => {
-  //   setStore((prevState) => [...prevState, text]);
-  // }
 
-  // store[] = [obj, obj2] ->
-  // [{item}, {item2}] -> 
-  // [{item.text, item.pic, item.key}, {item2.text, item2.pic, item2.key}]
   const addToCart = (item, itemCount) => {
     item.itemCount = itemCount;
-    console.log(item)
-    // console.log(item[2])
-    const isItemInCart = store.find((cartItem) => {if (cartItem.key === item.key) return true; });
+    
+    const isItemInCart = store.find((cartItem) => {if (cartItem.key === item.key) return true});
     
     if (!isItemInCart) {
       setStore((currentItems) => [...currentItems, item]);
     }
-    setCount((prevCount) => [...prevCount, item]);
   }
 
   return (
-    <CartContext.Provider value={{ items, setItems, addToCart, store, count }}>
+    <CartContext.Provider value={{ items, setItems, addToCart, store,setStore}}>
       {children}
     </CartContext.Provider>
   )

@@ -2,14 +2,19 @@ import { StyleSheet, Text, TouchableOpacity, Alert } from 'react-native'
 import React, { useContext } from 'react'
 import CartContext from '../CartContext'
 
-const AddButton = ({ item, itemCount }) => {
+const AddButton = ({ item, itemCount, setItemCount }) => {
 
   const { addToCart } = useContext(CartContext);
+  
+  function submitAndReset() {
+    itemCount ? 0 > addToCart(item, itemCount)
+      : Alert.alert('Dikkat!', 'Ürün adedi 0\'dan BÜYÜK olmalıdır.', [
+        {text: 'Tamam'}])
+    setItemCount(0)
+  }
 
   return (
-    <TouchableOpacity style={styles.button} onPress={() => itemCount ? 0 > addToCart(item, itemCount)
-      : Alert.alert('Dikkat!', 'Ürün adedi 0\'dan BÜYÜK olmalıdır.', [
-        {text: 'Tamam'}])}>
+    <TouchableOpacity style={styles.button} onPress={() => submitAndReset()}>
       <Text>+</Text>
     </TouchableOpacity>
   )

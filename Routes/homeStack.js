@@ -11,7 +11,6 @@ import CartContext from '../CartContext';
 const Stack = createNativeStackNavigator();
 
 function GoToButton({ screenName }) {
-  const { count } = useContext(CartContext);
   const { store } = useContext(CartContext);
   const navigation = useNavigation();
 
@@ -25,7 +24,7 @@ function GoToButton({ screenName }) {
         <AntDesign style={{ paddingRight: 10 }} name="shoppingcart" size={24} color="black" 
            onPress={() => navigation.navigate(screenName)}/>
         <Text style={{fontSize: 18,}}>{chartCount}</Text>
-       </View>
+      </View>
   );
 };
 

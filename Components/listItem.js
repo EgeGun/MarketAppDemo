@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useCallback, useState } from 'react'
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -46,16 +46,16 @@ export default function ListItem({ item }) {
         <Text style={styles.itemPic}>{item.pic}</Text>
         <Text style={styles.itemText}>{item.text}</Text> 
         <TextInput
-        
           style={styles.itemCount}
           placeholder='0'
           placeholderTextColor="#b3b3b3" 
           maxLength={2}
           keyboardType='number-pad'
           onChangeText={changeHandler}
+          value={itemCount}
         />
         <View style={styles.button}>
-          <AddButton item={item} itemCount={itemCount}/>
+          <AddButton item={item} itemCount={itemCount} setItemCount={setItemCount}/>
         </View>
       </View>
     </View>

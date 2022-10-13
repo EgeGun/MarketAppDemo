@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
 import {useNavigation, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AntDesign } from '@expo/vector-icons'; 
+import HeaderTitle from '../Components/headerTitle';
 import HomeScreen from '../Screens/home';
 import ChartScreen from '../Screens/chart';
-import HeaderTitle from '../Components/headerTitle';
-import { AntDesign } from '@expo/vector-icons'; 
 import CartContext from '../CartContext';
 
 const Stack = createNativeStackNavigator();

@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'; 
 import CartContext from '../CartContext';
 
 const ChartScreen = () => {
+  const [refreshList, setRefreshList] = useState(false);
+
   const { store } = useContext(CartContext);
   const { setStore } = useContext(CartContext);
 
@@ -11,25 +13,43 @@ if(store.length != 0) {
     return (
       <FlatList 
         data={store}
-        extraData={store}
+        extraData={refreshList}
         renderItem={({ item }) => {
-        const pressHandler = (key) => {
-          setStore((prevItems) => {
-            return prevItems.filter((item) => item.key != key)
-        });
-  };
+          const pressHandler = (key) => {
+            setStore((prevItems) => {
+              return prevItems.filter((item) => item.key != key)
+            })
+          };
+          function increment(){
+            item.itemCount++;
+              if(item.itemCount % 2 == 0 || item.itemCount == 0){
+                return setRefreshList(true);
+              }else {
+                return setRefreshList(false);
+              }
+          }
+          function decrement(){
+            if(item.itemCount > 0){
+              item.itemCount--;
+              if(item.itemCount % 2 == 0){
+                return setRefreshList(true);
+              }else {
+                return setRefreshList(false);
+              }
+            }
+          }
           return (
             <View style={styles.listItem}>
               <Text style={styles.itemPic}>{item.pic}</Text>
               <Text style={styles.itemText}>{item.text}</Text>
               <View style={styles.itemCountView}>
                 <TouchableOpacity style={styles.up} hitSlop={{top: 15, right: 15, bottom: 15, left: 15}}
-                  onPress={() => item.itemCount++}>
+                  onPress={() => increment()}>
                   <MaterialIcons name="arrow-drop-up" size={36} color="#ddd"/>
                 </TouchableOpacity>
                 <Text style={styles.itemCountText}>{item.itemCount}</Text>
                 <TouchableOpacity hitSlop={{top: 5, right: 15, bottom: 15, left: 15}}
-                  onPress={() => item.itemCount ? 0 > item.itemCount-- : null}>
+                  onPress={() => decrement()}>
                   <MaterialIcons name="arrow-drop-down" size={36} color="#ddd"/>
                 </TouchableOpacity>
               </View>

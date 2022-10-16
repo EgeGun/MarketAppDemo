@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {useNavigation, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AntDesign } from '@expo/vector-icons'; 
@@ -10,7 +10,7 @@ import CartContext from '../CartContext';
 
 const Stack = createNativeStackNavigator();
 
-function GoToButton({ screenName }) {
+function GoToButton({ screenName, onLayoutRootView }) {
   const { store } = useContext(CartContext);
   const navigation = useNavigation();
 
@@ -20,33 +20,57 @@ function GoToButton({ screenName }) {
   }
 
   return (
-      <View style={{flexDirection: 'row'}}>
-        <AntDesign style={{ paddingRight: 10 }} name="shoppingcart" size={24} color="black" 
-           onPress={() => navigation.navigate(screenName)}/>
-        <Text style={{fontSize: 18,}}>{chartCount}</Text>
-      </View>
+      <TouchableOpacity style={styles.cartContainer} onLayout={onLayoutRootView}
+        onPress={() => navigation.navigate(screenName)}>
+        <AntDesign style={styles.cart} name="shoppingcart" size={24} color="#0b5f7d"/>
+        <Text style={styles.itemCount}>{chartCount}</Text>
+      </TouchableOpacity>
   );
 };
 
-export default function HomeStack() {
+export default function HomeStack({ onLayoutRootView}) {
   return (
     <NavigationContainer>
         <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name='Home' component={HomeScreen}
             options={{
                 headerTitle: () => <HeaderTitle/>, 
-                headerTitleAlign: 'center',
+                headerTitleAlign: 'flex-start',
                 headerStyle: {
-                 backgroundColor:'#0b5f7d'
+                 backgroundColor:'#ffff'
                 },
                 headerRight: () => (
-                  <GoToButton screenName="Sepet"/>
+                  <GoToButton screenName="Sepet" onLayoutRootView={onLayoutRootView}/>
                 )}}/>
         <Stack.Screen name='Sepet'component={ChartScreen}
             options={{
+              title: 'Sepet',
+              headerTintColor: '#0b5f7d',
               headerStyle:
-              {backgroundColor:'#0b5f7d'}}}/>
+              {backgroundColor:'#ffff'}}}/>
     </Stack.Navigator>
     </NavigationContainer>
   )
-}
+};
+
+const styles = StyleSheet.create({
+  cartContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 36,
+    width: 72,
+    borderWidth: 1,
+    borderColor: '#0b5f7d',
+    borderRadius: 6,
+  },
+  cart: {
+    marginRight: 6,
+  },
+  itemCount: {
+    paddingBottom: 4,
+    fontFamily: 'Raleway-SemiBold',
+    fontSize: 16,
+    color: '#0b5f7d',
+  },
+});

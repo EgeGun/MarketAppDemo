@@ -1,11 +1,6 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native'
-import React, { useCallback, useState } from 'react'
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import React, { useState } from 'react'
 import AddButton from '../Components/addButton';
-
-
-SplashScreen.preventAutoHideAsync();
 
 export default function ListItem({ item }) {
   const [itemCount, setItemCount] = useState(0);
@@ -16,23 +11,8 @@ export default function ListItem({ item }) {
     }
   }
 
-  const [fontsLoaded] = useFonts({
-    'Raleway-Regular': require("../assets/Fonts/Raleway-Regular.ttf"),
-    'Raleway-SemiBold': require("../assets/Fonts/Raleway-SemiBold.ttf"),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-  
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
-    <View style={ styles.container} onLayout={onLayoutRootView}>
+    <View style={ styles.container}>
       {/* Ternary operation */}
       {item.title 
       ?
@@ -46,10 +26,10 @@ export default function ListItem({ item }) {
         <Text style={styles.itemPic}>{item.pic}</Text>
         <Text style={styles.itemText}>{item.text}</Text> 
         <TextInput
-          style={styles.itemCount}
+          style={styles.itemCountText}
           placeholder='0'
-          placeholderTextColor="#b3b3b3" 
-          maxLength={2}
+          placeholderTextColor="#dddd" 
+          maxLength={3}
           keyboardType='number-pad'
           onChangeText={changeHandler}
           value={itemCount}
@@ -64,8 +44,7 @@ export default function ListItem({ item }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    paddingHorizontal: 12,
+    paddingTop: 12,
   },
   itemTitle: {
     textAlign: 'center',
@@ -80,31 +59,36 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    borderWidth: 1,
+    marginBottom: 10,
+    marginHorizontal: 12,
     borderRadius: 10,
-    borderColor: '#bbb',
+    backgroundColor:'#ffff',
+  },
+  itemPic: {
+    paddingLeft: 5,
     marginBottom: 12,
-    paddingBottom: 12,
-    backgroundColor:'#0b5f7d',
+    paddingBottom: 24,
   },
   itemText: {
     flex: 1,
+    justifyContent: 'flex-end',
     flexWrap: 'wrap',
-    paddingLeft: 8,
-    paddingBottom: 23,
+    paddingLeft: 12,
+    paddingBottom: 16,
+    marginBottom: 10,
     fontFamily: 'Raleway-Regular',
     fontSize: 16,
-    color: '#ddd',
+    color: '#1A1A1A',
   },
-  itemCount: {
+  itemCountText: {
     paddingLeft: 10,
     marginBottom: 24,
     marginRight: 12,
     fontFamily: 'Raleway-Regular',
     fontSize: 16,
-    color: '#ddd',
+    color: '#0b5f7d',
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: '#0b5f7d',
   },
   itemPic: {
     paddingLeft: 5,

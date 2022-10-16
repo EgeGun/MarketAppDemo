@@ -4,7 +4,7 @@ import React from 'react'
 const HeaderTitle = () => {
    return (
     <Image 
-    style={{resizeMode: 'contain'}}
+    style={{resizeMode: 'contain',}}
     source={require("../Images/ardenLogo.png")}/>
    )
   }

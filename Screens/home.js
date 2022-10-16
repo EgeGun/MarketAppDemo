@@ -10,6 +10,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <FlatList
         removeClippedSubviews={false}
+        keyboardShouldPersistTaps='handled'
         data={items}
         renderItem={({ item }) => (
           <ListItem item={item}/>
@@ -24,8 +25,7 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 5,
+    backgroundColor: '#E8EAED',
     paddingBottom: 5,
   },
 })
